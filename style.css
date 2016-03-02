@@ -1,0 +1,42 @@
+body {
+	font-family: Lato;
+	font-size: 13px;
+	margin: 0;
+    padding: 0;
+    margin: 0 auto;
+}
+
+table.keys {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid rgba(128, 128, 128, 0.16);;
+}
+
+table.keys thead {
+	font-weight: bold;
+}
+
+table.keys thead td {
+	border-bottom: 1px solid lightgray;
+	padding: 0px 10px;
+}
+
+input[type="submit"] {
+    border: 2px solid rgba(128, 128, 128, 0.21);
+    border-radius: 3px;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 6px 20px;
+    margin: 10px;
+}
+
+.header {
+	width: 100%;
+	background-color: rgba(128, 128, 128, 0.06);
+    padding: 1px 25px;
+}
+
+#info_decoded {
+	    padding: 25px;
+    background-color: rgba(173, 216, 230, 0.14);	
+}
