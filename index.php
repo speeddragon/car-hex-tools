@@ -4,9 +4,15 @@
 		<link rel="stylesheet" href="style.css" type="text/css">
 	</head>
 	<body>
-		<ul>
-			<li><a href="bmwcas3.php">BMW/Mini CAS3 Reader</a></li>
-			<li><a href="hex-diff.php">Binary Diff</a></li>
-		</ul>
+        <div class="header">
+            <h1>Car Hex Tools</h1>
+
+            <h2>Options</h2>
+
+            <ul>
+                <li><a href="bmwcas3.php">BMW/Mini CAS3 Reader</a></li>
+                <li><a href="hex-diff.php">Binary Diff</a></li>
+            </ul>
+        </div>
 	</body>
 </html>

@@ -1,16 +1,13 @@
 <?php
-	require('utils.php');
+    require('utils/BmwCasUtils.php');
 
-	$targetDir = "uploads/";
 	if (count($_POST)) {
-		$targetFile = $_FILES['fileToUpload']['tmp_name']; //$$_FILES["fileToUpload"]["name"]);
+		$targetFile = $_FILES['fileToUpload']['tmp_name'];
 
 		if (!file_exists($targetFile)) {
 			#echo "File not found!";
 		} else {
-
-			$isn = getISN($targetFile);
-			$vin = getVIN($targetFile);
+            $bmwCasFile = new BmwCasUtils($targetFile);
 		}
 	}
 ?>
@@ -31,19 +28,21 @@
         		</form>
 		</div>
 
-<? if (count($_POST) && file_exists($targetFile)) {?>
+<?php if (isset($bmwCasFile)) { ?>
 <div id="info_decoded">
-	<div>VIN: <b><?php echo $vin; ?></b></div>
-	<div>ISN: <b><?php echo $isn; ?></b></div>
+    <div>Filename: <?php echo htmlentities($_FILES["fileToUpload"]["name"]); ?></div>
 
-	<div>HW Version: <b><?php echo getHardwareVersion($targetFile); ?></b></div>
-        <div>DME: <b><?php echo getDME($targetFile); ?></b></div>
-        <div>EGS: <b><?php echo getEGS($targetFile); ?></b></div>
-        <div>Paint Code: <b><?php echo getPaintCode($targetFile); ?></b></div>
-        <div>Programing Date: <b><?php echo getProgramingDate($targetFile); ?></b></div>
+	<div>VIN: <b><?php echo $bmwCasFile->getISN(); ?></b></div>
+	<div>ISN: <b><?php echo $bmwCasFile->getVIN(); ?></b></div>
+
+	<div>HW Version: <b><?php echo $bmwCasFile->getHardwareVersion(); ?></b></div>
+        <div>DME: <b><?php echo $bmwCasFile->getDME(); ?></b></div>
+        <div>EGS: <b><?php echo $bmwCasFile->getEGS(); ?></b></div>
+        <div>Paint Code: <b><?php echo $bmwCasFile->getPaintCode(); ?></b></div>
+        <div>Programing Date: <b><?php echo $bmwCasFile->getProgramingDate(); ?></b></div>
 
 	<div>
-		<?php $keys = getKeys($targetFile); ?>
+		<?php $keys = $bmwCasFile->getKeys(); ?>
 		<h2>Keys</h2>
 		<table class="keys">
 			<thead>
@@ -78,9 +77,10 @@
 	</div>
 
 	<h3>File</h3>
-	<div style="padding-right: 20px; float: left; font-family: monospace;"><?php echo nl2br(printHexGraphic(getHex($targetFile), 32)); ?>
+	<div style="padding-right: 20px; float: left; font-family: monospace;">
+        <?php echo nl2br($bmwCasFile->printHexGraphic(32)); ?>
 	</div>
-	<div style="font-family:monospace;"><?php echo nl2br(printStr(getHex($targetFile), 32)); ?>
+	<div style="font-family:monospace;"><?php echo nl2br(HexUtils::printString($bmwCasFile->getHex(), 32)); ?>
 	</div>
 </div>
 <?php } else if (count($_POST)) { ?>
