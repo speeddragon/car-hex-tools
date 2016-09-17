@@ -88,7 +88,6 @@
             if (strlen($hex1) != strlen($hex2)) {
                 return -1;
             } else {
-                $i = 0;
                 for($pos = 0; $pos < strlen($hex1); $pos = $pos + 2) {
                     $byte1 = substr($hex1, $pos, 2);
                     $byte2 = substr($hex2, $pos, 2);
@@ -98,10 +97,46 @@
                     } else {
                         $hexDiff[$pos] = array($byte1, $byte2);
                     }
-                    $i++;
                 }
             }
 
             return $hexDiff;
+        }
+
+        public static function cleanDump($crashFile, $cleanFile, $toCleanFile) {
+            // Check all files size, must match
+            if (filesize($crashFile) == filesize($cleanFile) && filesize($crashFile) == filesize($toCleanFile)) {
+
+                $crashHex = self::getHex($crashFile);
+                $cleanHex = self::getHex($cleanFile);
+                $toCleanHex = self::getHex($toCleanFile);
+
+                $cleanedHex = "";
+
+                // Process
+                for($pos = 0; $pos < strlen($crashHex); $pos = $pos + 2) {
+                    $crashByte = substr($crashHex, $pos, 2);
+                    $cleanByte = substr($cleanHex, $pos, 2);
+                    $toCleanByte = substr($toCleanHex, $pos, 2);
+
+                    if ($cleanByte == 'ff') {
+                        $cleanedHex .= $cleanByte;
+                    } else {
+                        $cleanedHex .= $toCleanByte;
+                    }    
+                }
+
+                //echo $cleanedHex;
+
+                // Create new file
+                $newFilename = "cleaned/" . time() . ".bin";
+                $fp = fopen($newFilename, "wb+");
+                fwrite($fp, pack('H*', $cleanedHex));
+                fclose($fp);
+
+                return $newFilename;
+            } else {
+                throw new Exception("DIFFERENT_SIZES");
+            }
         }
     }

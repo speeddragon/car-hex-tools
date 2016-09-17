@@ -56,7 +56,7 @@
                     echo "Different file sizes!";
                 } else {
                     // Line Numbers
-                    echo '<div class="hex" style="padding-top: 20px; float: left; font-weight: bold; padding-right: 20px; padding-left: 15px; text-align: right;">';
+                    echo '<div class="hex" style="padding-top: 20px; float: left; font-weight: normal; padding-right: 20px; padding-left: 15px; text-align: right;">';
                     for ($i = 0; $i < filesize($file1); $i = $i + 8) {
                         echo dechex($i) . "<br/>";
                     }

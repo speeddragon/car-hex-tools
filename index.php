@@ -12,6 +12,7 @@
             <ul>
                 <li><a href="bmwcas3.php">BMW/Mini CAS3 Reader</a></li>
                 <li><a href="hex-diff.php">Binary Diff</a></li>
+                <li><a href="dump-cleaner.php">Dump Cleaner (Airbag, etc)</a></li>
             </ul>
         </div>
 	</body>
